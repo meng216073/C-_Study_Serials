@@ -1,0 +1,88 @@
+1.namespace的用法和使用方法
+namespace是命名空间，为了是区分不同的函数名，以免在同一个空间中有同样的函数名或者变量名分不清到底调用的哪个。
+命名空间的作用：是建立一些互相分隔的作用域，把一些全局实体分隔开来。以免产生老点名叫李相国时，3个人都站起来应答，这就是名字冲突，
+因为他们无法辨别老师想叫的是哪一个李相国，同名者无法互相区分。为了避免同名混淆，学校把3个同名的学生分在3个班。这样，在小班点名叫李相国时，
+只会有一个人应答。也就是说，在该班的范围(即班作用域)内名字是惟一的。如果在全校集合时校长点名，需要在全校范围内找这个学生，
+就需要考虑作用域问题。如果校长叫李相国，全校学生中又会有3人一齐喊“到”，因为在同一作用域中存在3个同名学生。
+为了在全校范围内区分这3名学生，校长必须在名字前加上班号，如高三甲班的李相国，或高三乙班的李相国，即加上班名限定。这样就不致产生混淆。 
+namespace通常用来给类或者函数做个区间定义，以使编译器能准确定位到适合的类或者函数。譬如说，自行实现了一个函数test(void)，
+而在该项目的库函数内也定义了一个函数test(void);当你调用test();函数的时候，编译器就困惑了，该调用哪个呢？这个时候namespace的作用就显现出来了。
+
+namespace的定义用法：
+
+namespace namespace_name {
+    // code declarations
+    // 函数，类名等等
+}
+namespace对应的调用方法：
+
+name::code; //此处code就是对应namespace内定义的类名或者函数名等等。
+实际调用举例：
+
+#include <iostream>
+using namespace std;
+    
+// first name space
+namespace first_space{
+    void func(){
+        cout << "Inside first_space" << endl;
+    }
+}
+    
+// second name space
+namespace second_space{
+    void func(){
+        cout << "Inside second_space" << endl;
+    }
+}
+    
+int main () {
+     
+// Calls function from first name space.
+first_space::func();
+       
+// Calls function from second name space.
+second_space::func(); 
+    
+return 0;
+} 
+在这个函数内用了两个命名空间(namespace)，输出的结果既是：
+
+"Inside first_space"
+"Inside second_space"
+
+当然对于"namespace"，那肯定还有相应的"using"关键词，"using"关键词既是指定使用特定的"namespace"，举例：
+
+#include <iostream>
+using namespace std;
+    
+// first name space
+namespace first_space{
+    void func(){
+    cout << "Inside first_space" << endl;
+    }
+}
+    
+// second name space
+namespace second_space{
+//此处func与第一处命名空间内函数名相同
+    void func(){
+        cout << "Inside second_space" << endl;
+    }
+}
+    
+// 使用第一个namespace
+using namespace first_space;
+int main () {
+     
+// This calls function from first name space.
+    func();
+       
+    return 0;
+}
+此处已经强调使用第一个命名空间，所以第一处命名空间的空间名都可以省略不写，直接调用对应的函数或者参数即可。
+最后返回的结果既是：
+
+"Inside first_space"。
+
+至此，记录完毕。
